@@ -60,7 +60,8 @@ vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 vim.o.smartindent = true
 vim.opt.cmdheight = 0
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
 vim.opt.colorcolumn = "90"
 
 -- vim: ts=2 sts=2 sw=2 et
+
