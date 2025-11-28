@@ -18,12 +18,14 @@ return {
         { "<leader>sd",  function() Snacks.picker.diagnostics() end,                      desc = "[S]earch [D]iagnostics" },
         { "<leader>sw",  function() Snacks.picker.grep_word() end,                        desc = "[S]earch [W]ord",                 mode = { "n", "x" } },
         { "<leader>sh",  function() Snacks.picker.undo() end,                             desc = "[S]earch [H]istory" },
+        { "<leader>sc",  function() Snacks.picker.resume() end,                           desc = "[S]earch [C]ontinue" },
 
         -- git
         { "<leader>sgb", function() Snacks.picker.git_branches() end,                     desc = "[S]earch [G]it [B]ranches" },
         { "<leader>sgl", function() Snacks.picker.git_log({ preview = "git_show", }) end, desc = "[S]earch [G]it [L]og" },
         { "<leader>sgL", function() Snacks.picker.git_log_line() end,                     desc = "[S]earch [G]it [L]og Line" },
         { "<leader>sgs", function() Snacks.picker.git_status() end,                       desc = "[S]earch [G]it [S]tatus" },
+        { "<leader>sgd", function() Snacks.picker.git_diff() end,                         desc = "[S]earch [G]it [D]iff" },
 
         -- LSP
         { "gd",          function() Snacks.picker.lsp_definitions() end,                  desc = "Goto Definition" },
@@ -37,7 +39,9 @@ return {
         explorer = { enabled = true },
         picker = {
             enabled = true,
-            layout = { preset = "ivy" },
+            layout = {
+                preset = "telescope",
+            },
             hidden = true,
             ignored = true,
             sources = {
@@ -53,7 +57,19 @@ return {
                     focus = "list",
                     auto_close = true,
                     layout = {
-                        auto_hide = { "input" },
+                        hidden = { "input" },
+                        layout = {
+                            backdrop = false,
+                            row = 1,
+                            width = 0.4,
+                            min_width = 80,
+                            height = 0.4,
+                            border = true,
+                            box = "vertical",
+                            { win = "input",   height = 1,          border = true, title = "{title} {live} {flags}", title_pos = "center" },
+                            { win = "list",    border = "hpad" },
+                            { win = "preview", title = "{preview}", border = true },
+                        },
                     },
                     win = {
                         list = {

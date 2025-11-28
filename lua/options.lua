@@ -2,9 +2,6 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
-
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
@@ -63,7 +60,7 @@ vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 vim.o.smartindent = true
 vim.opt.cmdheight = 0
-vim.opt.laststatus = 3
+vim.opt.laststatus = 2
 vim.opt.colorcolumn = "90"
 
 -- vim: ts=2 sts=2 sw=2 et
