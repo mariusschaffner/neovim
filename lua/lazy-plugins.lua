@@ -7,15 +7,12 @@ require("lazy").setup({
   require("plugins.which-key"),
   require("plugins.toggleterm"),
   require("plugins.snacks"),
-  -- require("plugins.rest"),
   require("plugins.multicursor"),
   require("plugins.markdown"),
   require("plugins.indent_line"),
-  -- require("plugins.debug"),
   require("plugins.conform"),
   require("plugins.autopairs"),
   require("plugins.git"),
-  -- require("plugins.lualine")
 }, {
   ui = {
     backdrop = false,

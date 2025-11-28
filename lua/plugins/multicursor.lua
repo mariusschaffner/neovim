@@ -8,13 +8,12 @@ return {
         local set = vim.keymap.set
 
         -- Add or skip cursor above/below the main cursor.
-        set({"n", "x"}, "<C-Up>", function() mc.lineAddCursor(-1) end)
-        set({"n", "x"}, "<C-Down>", function() mc.lineAddCursor(1) end)
-        set({"n", "x"}, "<A-Up>", function() mc.lineSkipCursor(-1) end)
-        set({"n", "x"}, "<A-Down>", function() mc.lineSkipCursor(1) end)
+        set({ "n", "x" }, "<C-Up>", function() mc.lineAddCursor(-1) end)
+        set({ "n", "x" }, "<C-Down>", function() mc.lineAddCursor(1) end)
+        set({ "n", "x" }, "<A-Up>", function() mc.lineSkipCursor(-1) end)
+        set({ "n", "x" }, "<A-Down>", function() mc.lineSkipCursor(1) end)
 
         mc.addKeymapLayer(function(layerSet)
-
             -- Enable and clear cursors using escape.
             layerSet("n", "<esc>", function()
                 if not mc.cursorsEnabled() then
@@ -29,10 +28,10 @@ return {
         local hl = vim.api.nvim_set_hl
         hl(0, "MultiCursorCursor", { reverse = true })
         hl(0, "MultiCursorVisual", { link = "Visual" })
-        hl(0, "MultiCursorSign", { link = "SignColumn"})
+        hl(0, "MultiCursorSign", { link = "SignColumn" })
         hl(0, "MultiCursorMatchPreview", { link = "Search" })
         hl(0, "MultiCursorDisabledCursor", { reverse = true })
         hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
-        hl(0, "MultiCursorDisabledSign", { link = "SignColumn"})
+        hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
     end
 }
