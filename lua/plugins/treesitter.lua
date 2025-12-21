@@ -1,20 +1,28 @@
 return {
-  { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  event = { "BufReadPost", "BufNewFile" },
+  opts = {
+    ensure_installed = {
+      "lua",
+      "python",
+      "bash",
+      "powershell",
+      "python",
+      "json",
+      "yaml",
+      "terraform",
+      "hcl",
+      "markdown",
+      "markdown_inline",
     },
-    build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'powershell', 'diff', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'vim', 'vimdoc', 'http' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-      },
-      indent = { enable = true},
+    auto_install = true,
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = false,
+    },
+    indent = {
+      enable = true,
     },
   },
 }

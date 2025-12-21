@@ -4,17 +4,17 @@ return {
     config = function()
         local mc = require("multicursor-nvim")
         mc.setup()
-
         local set = vim.keymap.set
 
-        -- Add or skip cursor above/below the main cursor.
+        -- Add cursor above/below the main cursor
         set({ "n", "x" }, "<C-Up>", function() mc.lineAddCursor(-1) end)
         set({ "n", "x" }, "<C-Down>", function() mc.lineAddCursor(1) end)
+        -- Skip cursor above/below the main cursor
         set({ "n", "x" }, "<A-Up>", function() mc.lineSkipCursor(-1) end)
         set({ "n", "x" }, "<A-Down>", function() mc.lineSkipCursor(1) end)
 
+        -- Enable and clear cursors using escape.
         mc.addKeymapLayer(function(layerSet)
-            -- Enable and clear cursors using escape.
             layerSet("n", "<esc>", function()
                 if not mc.cursorsEnabled() then
                     mc.enableCursors()

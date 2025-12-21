@@ -1,67 +1,170 @@
--- Make line numbers default
+-- =========================================================
+-- Neovim Options
+-- =========================================================
+
+-- ---------------------------------------------------------
+-- Line numbers
+-- ---------------------------------------------------------
+-- Show absolute and relative line number
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Don't show the mode, since it's already in the status line
+-- ---------------------------------------------------------
+-- Status & command line UI
+-- ---------------------------------------------------------
+-- Do not show mode (e.g. -- INSERT --)
 vim.opt.showmode = false
 
--- Sync clipboard between OS and Neovim.
+-- Use a global statusline instead of one per window
+vim.opt.laststatus = 3
+
+-- Hide the command line
+vim.opt.cmdheight = 0
+
+
+-- ---------------------------------------------------------
+-- Clipboard
+-- ---------------------------------------------------------
+-- Sync Neovim clipboard with the system clipboard
 vim.schedule(function()
   vim.opt.clipboard = "unnamedplus"
 end)
 
--- Enable break indent
-vim.opt.breakindent = true
+-- ---------------------------------------------------------
+-- Line wrapping & indentation
+-- ---------------------------------------------------------
+-- Enable line wrapping
+vim.opt.wrap = true
 
--- Wrap at word boundaries, not in the middle of words
+-- Wrap lines at word boundaries instead of breaking words
 vim.opt.linebreak = true
 
--- Optional: show a character at the start of wrapped lines
-vim.opt.showbreak = "↳ "
+-- Indent wrapped lines to match the indentation of the original line
+vim.opt.breakindent = true
 
--- Save undo history
+-- Character shown at the start of wrapped lines
+vim.opt.showbreak = "↪ "
+
+-- ---------------------------------------------------------
+-- Undo & backup behavior
+-- ---------------------------------------------------------
+-- Persist undo history across sessions
 vim.opt.undofile = true
 
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+-- Disable swap/backup files (modern setups rely on undo + git)
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
+
+-- ---------------------------------------------------------
+-- Searching
+-- ---------------------------------------------------------
+-- Case-insensitive search by default...
 vim.opt.ignorecase = true
+
+-- ...but switch to case-sensitive if search contains capitals
 vim.opt.smartcase = true
 
--- Keep signcolumn on by default
+-- ---------------------------------------------------------
+-- Window & split behavior
+-- ---------------------------------------------------------
+-- Always show the sign column
 vim.opt.signcolumn = "yes"
 
--- Decrease update time
-vim.opt.updatetime = 250
-
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
-
--- Configure how new splits should be opened
+-- Open vertical splits to the right
 vim.opt.splitright = true
+
+-- Open horizontal splits below
 vim.opt.splitbelow = true
 
--- Sets how neovim will display certain whitespace characters in the editor.
-vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+-- ---------------------------------------------------------
+-- Performance & responsiveness
+-- ---------------------------------------------------------
+-- Faster completion, CursorHold, and diagnostics updates
+vim.opt.updatetime = 250
 
--- Preview substitutions live, as you type!
+-- Shorter delay for mapped sequences
+vim.opt.timeoutlen = 300
+
+-- Do not redraw while executing macros
+vim.opt.lazyredraw = true
+
+-- ---------------------------------------------------------
+-- Whitespace visualization
+-- ---------------------------------------------------------
+-- Show invisible characters
+vim.opt.list = true
+
+-- Define which characters to display
+vim.opt.listchars = {
+  tab = "» ",
+  trail = "·",
+  nbsp = "␣",
+}
+
+-- ---------------------------------------------------------
+-- Substitution preview
+-- ---------------------------------------------------------
+-- Show live preview of :substitute commands in a split window
 vim.opt.inccommand = "split"
 
--- Show which line your cursor is on
+-- ---------------------------------------------------------
+-- Cursor & scrolling
+-- ---------------------------------------------------------
+-- Highlight the current line
 vim.opt.cursorline = true
 
--- Minimal number of screen lines to keep above and below the cursor.
+-- Keep at least 10 lines visible above and below the cursor
 vim.opt.scrolloff = 10
 
--- custom options
-vim.o.fillchars = "horiz:─,horizup:┴,horizdown:┬"
-vim.o.completeopt = "menu,menuone,noselect"
-vim.o.expandtab = true
-vim.o.shiftwidth = 4
-vim.o.tabstop = 4
-vim.o.smartindent = true
-vim.opt.cmdheight = 0
-vim.opt.laststatus = 3
+-- ---------------------------------------------------------
+-- Completion behavior
+-- ---------------------------------------------------------
+-- Better completion menu behavior (required for nvim-cmp)
+vim.opt.completeopt = "menu,menuone,noselect"
+
+-- Limit completion popup height
+vim.opt.pumheight = 15
+
+-- ---------------------------------------------------------
+-- Indentation & tabs
+-- ---------------------------------------------------------
+-- Use spaces instead of tabs
+vim.opt.expandtab = true
+
+-- Number of spaces used for indentation
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+
+-- Use basic automatic indentation
+vim.opt.autoindent = true
+
+-- ---------------------------------------------------------
+-- Visual helpers
+-- ---------------------------------------------------------
+-- Highlight a column to indicate preferred maximum line length
 vim.opt.colorcolumn = "90"
+
+-- Use nicer characters for window separators
+vim.opt.fillchars = {
+  horiz = "─",
+  horizup = "┴",
+  horizdown = "┬",
+}
+
+-- border for all floats
+vim.o.winborder = 'rounded'
+
+-- ---------------------------------------------------------
+-- Safety & confirmations
+-- ---------------------------------------------------------
+-- Ask for confirmation instead of erroring on unsaved changes
+vim.opt.confirm = true
+-- ---------------------------------------------------------
+-- Diff behavior
+-- ---------------------------------------------------------
+-- Use vertical diffs and smarter line matching
+vim.opt.diffopt:append("vertical")
+vim.opt.diffopt:append("linematch:60")
 
 -- vim: ts=2 sts=2 sw=2 et

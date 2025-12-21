@@ -37,6 +37,25 @@ return {
     },
     opts = {
         explorer = { enabled = true },
+        indent = {
+            enabled = true,
+            char = "│",
+            animate = { enabled = false, },
+            scope = {
+                enabled = true,
+                underline = true,
+            },
+            chunk = {
+                enabled = true,
+                char = {
+                    corner_top = "╭",
+                    corner_bottom = "╰",
+                    horizontal = "─",
+                    vertical = "│",
+                    arrow = ">",
+                },
+            },
+        },
         picker = {
             enabled = true,
             layout = {

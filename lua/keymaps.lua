@@ -1,93 +1,149 @@
--- Clear highlights on search when pressing <Esc> in normal mode
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+-- =========================================================
+-- Neovim Keymaps
+-- =========================================================
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+local keymap = vim.keymap.set
 
--- TIP: Disable arrow keys in normal mode
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+-- ---------------------------------------------------------
+-- Basic behavior
+-- ---------------------------------------------------------
+-- Clear search highlights when pressing <Esc> in normal mode
+keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", {
+  desc = "Clear search highlights",
+})
 
--- move cursor between splits
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- Exit terminal mode more easily
+keymap("t", "<Esc><Esc>", "<C-\\><C-n>", {
+  desc = "Exit terminal mode",
+})
 
--- resize splits
-vim.keymap.set("n", "<C-A-h>", ":vertical resize -2<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-A-l>", ":vertical resize +2<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-A-j>", ":resize -2<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-A-k>", ":resize +2<CR>", { noremap = true, silent = true })
+-- ---------------------------------------------------------
+-- Navigation discipline
+-- ---------------------------------------------------------
+-- Disable arrow keys in normal mode to encourage hjkl usage
+keymap("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+keymap("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+keymap("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+keymap("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
--- move lines
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")     -- move line up(n)
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==")     -- move line down(n)
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
+-- ---------------------------------------------------------
+-- Window navigation
+-- ---------------------------------------------------------
+-- Move focus between splits using Ctrl + hjkl
+keymap("n", "<C-h>", "<C-w>h", { desc = "Focus left window" })
+keymap("n", "<C-l>", "<C-w>l", { desc = "Focus right window" })
+keymap("n", "<C-j>", "<C-w>j", { desc = "Focus lower window" })
+keymap("n", "<C-k>", "<C-w>k", { desc = "Focus upper window" })
 
--- buffer related Keymaps
-vim.keymap.set("n", "<leader>wn", ":bnext<CR>", { desc = "Next buffer" })         -- Go to next buffer
-vim.keymap.set("n", "<leader>wp", ":bprevious<CR>", { desc = "Previous buffer" }) -- Go to previous buffer
+-- ---------------------------------------------------------
+-- Window resizing
+-- ---------------------------------------------------------
+-- Resize splits using Ctrl + Alt + hjkl
+keymap("n", "<C-A-h>", "<cmd>vertical resize -2<CR>", {
+  desc = "Resize split left",
+  silent = true,
+})
+keymap("n", "<C-A-l>", "<cmd>vertical resize +2<CR>", {
+  desc = "Resize split right",
+  silent = true,
+})
+keymap("n", "<C-A-j>", "<cmd>resize -2<CR>", {
+  desc = "Resize split down",
+  silent = true,
+})
+keymap("n", "<C-A-k>", "<cmd>resize +2<CR>", {
+  desc = "Resize split up",
+  silent = true,
+})
 
--- split all buffers
-vim.keymap.set("n", "<leader>ws", function()
+-- ---------------------------------------------------------
+-- Moving lines
+-- ---------------------------------------------------------
+-- Move the current line up or down in normal mode
+keymap("n", "<A-j>", "<cmd>m .+1<CR>==", {
+  desc = "Move line down",
+})
+keymap("n", "<A-k>", "<cmd>m .-2<CR>==", {
+  desc = "Move line up",
+})
+
+-- Move selected lines up or down in visual mode
+keymap("v", "<A-j>", "<cmd>m '>+1<CR>gv=gv", {
+  desc = "Move selection down",
+})
+keymap("v", "<A-k>", "<cmd>m '<-2<CR>gv=gv", {
+  desc = "Move selection up",
+})
+
+-- ---------------------------------------------------------
+-- Buffer management
+-- ---------------------------------------------------------
+-- Navigate between buffers
+keymap("n", "<leader>wn", "<cmd>bn<CR>", {
+  desc = "Next buffer",
+})
+keymap("n", "<leader>wp", "<cmd>bp<CR>", {
+  desc = "Previous buffer",
+})
+
+-- Open all listed buffers in vertical splits
+keymap("n", "<leader>ws", function()
   local buffers = vim.fn.getbufinfo({ buflisted = 1 })
-  local open_windows = {}
-
-  -- Collect buffers currently displayed in windows
+  local open_buffers = {}
   for _, win in ipairs(vim.api.nvim_list_wins()) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    open_windows[buf] = true
+    open_buffers[vim.api.nvim_win_get_buf(win)] = true
   end
-
-  -- Iterate over all buffers and open those not currently visible
   for _, buf in ipairs(buffers) do
-    if not open_windows[buf.bufnr] then
-      vim.cmd("vsplit")               -- Create a vertical split
-      vim.cmd("buffer " .. buf.bufnr) -- Load the buffer
+    if not open_buffers[buf.bufnr] then
+      vim.cmd("vsplit")
+      vim.cmd("buffer " .. buf.bufnr)
     end
   end
-end, { desc = "Split all Buffers vertical" })
+end, {
+  desc = "Split all buffers vertically",
+})
 
--- merge all buffers
-vim.keymap.set("n", "<leader>wm", function()
-  vim.cmd("only") -- Closes all other splits but keeps buffers open
-end, { desc = "Maximize current buffer (close splits)" })
+-- Close all other splits and focus the current buffer
+keymap("n", "<leader>wm", "<cmd>only<CR>", {
+  desc = "Maximize current buffer",
+})
 
--- Highlight when yanking (copying) text
+-- ---------------------------------------------------------
+-- Autocommands
+-- ---------------------------------------------------------
+-- Highlight yanked text briefly for visual feedback
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  desc = "Highlight on yank",
+  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
   callback = function()
     vim.highlight.on_yank()
   end,
 })
 
--- yaml files to ansible files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.yml", "*.yaml" },
-  callback = function()
-    vim.bo.filetype = "yaml.ansible"
-  end,
-})
-
--- -- auto hover diagnostics
--- vim.api.nvim_create_autocmd("CursorHold", {
+-- Treat YAML files as Ansible YAML
+-- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--   pattern = { "*.yml", "*.yaml" },
+--   desc = "Set Ansible filetype for YAML files",
+--   group = vim.api.nvim_create_augroup("ansible-yaml", { clear = true }),
 --   callback = function()
---     vim.diagnostic.open_float(nil, { focus = false })
+--     vim.bo.filetype = "yaml.ansible"
 --   end,
 -- })
 
--- plugin specific keymaps
+-- ---------------------------------------------------------
+-- Optional: automatic diagnostic hover (disabled)
+-- ---------------------------------------------------------
+-- Automatically show diagnostics under the cursor when idle.
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--   callback = function()
+--     vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+--   end,
+-- })
 
+-- ---------------------------------------------------------
+-- Plugin specific keymaps
+-- ---------------------------------------------------------
 -- Open Git Diff
 vim.keymap.set("n", "<leader>gd", ":CodeDiff<CR>", { desc = "[G]it [D]iff" })
-
-
-
-
 
 -- vim: ts=2 sts=2 sw=2 et
