@@ -36,10 +36,10 @@ return {
             underline = true,
             signs = {
               text = {
-                [vim.diagnostic.severity.ERROR] = "",
-                [vim.diagnostic.severity.WARN] = "",
-                [vim.diagnostic.severity.INFO] = "󰋼",
-                [vim.diagnostic.severity.HINT] = "󰌵",
+                [vim.diagnostic.severity.ERROR] = "",
+                [vim.diagnostic.severity.WARN] = "",
+                [vim.diagnostic.severity.INFO] = "",
+                [vim.diagnostic.severity.HINT] = "",
               },
             },
           })
@@ -151,7 +151,15 @@ return {
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local servers = {
-
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = "standard"
+              },
+            },
+          },
+        },
         lua_ls = {
           settings = {
             Lua = {

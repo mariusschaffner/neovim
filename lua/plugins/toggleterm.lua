@@ -16,6 +16,9 @@ return {
                 return vim.o.lines
             end,
         },
+        highlights = {
+            FloatBoarder = "#00f2ff",
+        },
     },
     config = function(_, opts)
         require("toggleterm").setup(opts)

@@ -27,6 +27,7 @@ return {
     },
     opts = {
       preset = "helix",
+
       -- delay between pressing a key and opening which-key (milliseconds)
       -- this setting is independent of vim.o.timeoutlen
       delay = 0,
@@ -71,7 +72,9 @@ return {
       spec = {
         { "<leader>s",  group = "[S]earch" },
         { "<leader>sg", group = "[S]earch [G]it" },
+        { "<leader>g",  group = "[G]it" },
         { "<leader>w",  group = "[W]indow" },
+        { "<leader>R",  group = "[R]est Client" },
         { "<leader>t",  group = "[T]erraform" },
       },
     },

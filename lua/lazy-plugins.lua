@@ -13,6 +13,7 @@ require("lazy").setup({
   require("plugins.conform"),
   require("plugins.autopairs"),
   require("plugins.git"),
+  require("plugins.rest"),
 }, {
   ui = {
     backdrop = false,
