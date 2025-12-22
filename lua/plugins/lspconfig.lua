@@ -27,6 +27,8 @@ return {
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       local servers = {
         lua_ls = {},
+        yamlls = {},
+        terraformls = {},
       }
       require("mason-lspconfig").setup({
         ensure_installed = vim.tbl_keys(servers),

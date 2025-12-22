@@ -121,14 +121,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Treat YAML files as Ansible YAML
--- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
---   pattern = { "*.yml", "*.yaml" },
---   desc = "Set Ansible filetype for YAML files",
---   group = vim.api.nvim_create_augroup("ansible-yaml", { clear = true }),
---   callback = function()
---     vim.bo.filetype = "yaml.ansible"
---   end,
--- })
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.yml", "*.yaml" },
+  desc = "Set Ansible filetype for YAML files",
+  group = vim.api.nvim_create_augroup("ansible-yaml", { clear = true }),
+  callback = function()
+    vim.bo.filetype = "yaml.ansible"
+  end,
+})
 
 -- ---------------------------------------------------------
 -- Optional: automatic diagnostic hover (disabled)
