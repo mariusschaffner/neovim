@@ -21,11 +21,10 @@ return {
         { "<leader>sc",  function() Snacks.picker.resume() end,                           desc = "[S]earch [C]ontinue" },
 
         -- git
-        { "<leader>sgb", function() Snacks.picker.git_branches() end,                     desc = "[S]earch [G]it [B]ranches" },
-        { "<leader>sgl", function() Snacks.picker.git_log({ preview = "git_show", }) end, desc = "[S]earch [G]it [L]og" },
-        { "<leader>sgL", function() Snacks.picker.git_log_line() end,                     desc = "[S]earch [G]it [L]og Line" },
-        { "<leader>sgs", function() Snacks.picker.git_status() end,                       desc = "[S]earch [G]it [S]tatus" },
-        { "<leader>sgd", function() Snacks.picker.git_diff() end,                         desc = "[S]earch [G]it [D]iff" },
+        { "<leader>gB", function() Snacks.picker.git_branches() end,                     desc = "[G]it [B]ranches" },
+        { "<leader>gl", function() Snacks.picker.git_log({ preview = "git_show", }) end, desc = "[G]it [L]og" },
+        { "<leader>gL", function() Snacks.picker.git_log_line() end,                     desc = "[G]it [L]og Line" },
+        { "<leader>gs", function() Snacks.picker.git_status() end,                       desc = "[G]it [S]tatus" },
 
         -- LSP
         { "gd",          function() Snacks.picker.lsp_definitions() end,                  desc = "Goto Definition" },

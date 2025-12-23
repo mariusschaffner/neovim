@@ -143,7 +143,8 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- ---------------------------------------------------------
 -- Plugin specific keymaps
 -- ---------------------------------------------------------
--- Open Git Diff
+-- GIT
 vim.keymap.set("n", "<leader>gd", ":CodeDiff<CR>", { desc = "[G]it [D]iff" })
+vim.keymap.set("n", "<leader>gb", ":Gitsigns blame<CR>", { desc = "[G]it [b]lame" })
 
 -- vim: ts=2 sts=2 sw=2 et
