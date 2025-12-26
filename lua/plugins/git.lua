@@ -12,31 +12,46 @@ return {
         },
     },
     {
-        {
-            "esmuellert/vscode-diff.nvim",
-            dependencies = { "MunifTanjim/nui.nvim" },
-            cmd = "CodeDiff",
-            config = function()
-                require("vscode-diff").setup({
-                    -- Keymaps in diff view
-                    keymaps = {
-                        view = {
-                            quit = "q",                    -- Close diff tab
-                            toggle_explorer = "<leader>b", -- Toggle explorer visibility (explorer mode only)
-                            next_hunk = "]c",              -- Jump to next change
-                            prev_hunk = "[c",              -- Jump to previous change
-                            next_file = "<Tab>",           -- Next file in explorer mode
-                            prev_file = "<S-Tab>",         -- Previous file in explorer mode
-                        },
-                        explorer = {
-                            select = "<CR>", -- Open diff for selected file
-                            hover = "K",     -- Show file diff preview
-                            refresh = "R",   -- Refresh git status
-                        },
-                    },
-                })
-            end,
-        }
+        "sindrets/diffview.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", { "nvim-tree/nvim-web-devicons", opts = {} }, },
+        cmd = {
+            'DiffviewFileHistory', 'DiffviewOpen', 'DiffviewToggleFiles', 'DiffviewFocusFiles', 'DiffviewRefresh'
+        },
+        opts = {
+            enhanced_diff_hl = true,
+            use_icons = true,
+            icons = {
+                folder_closed = "",
+                folder_open = "",
+            },
+            signs = {
+                fold_closed = "",
+                fold_open = "",
+                done = "✓",
+            },
+            view = {
+                default = { layout = "diff2_horizontal" },
+            },
+            file_panel = {
+                listing_style = "tree",
+                tree_options = {
+                    flatten_dirs = true,
+                    folder_statuses = "always",
+                },
+                win_config = {
+                    position = "left",
+                    width = 40,
+                    win_opts = {},
+                },
+            },
+            file_history_panel = {
+                win_config = {
+                    position = "bottom",
+                    height = 20,
+                    win_opts = {},
+                },
+            },
+        },
     },
     {
         'isakbm/gitgraph.nvim',
@@ -44,11 +59,11 @@ return {
         ---@type I.GGConfig
         keys = {
             {
-                "<leader>gg",
+                "<leader>G",
                 function()
                     require('gitgraph').draw({}, { all = true, max_count = 5000 })
                 end,
-                desc = "[G]it [G]raph",
+                desc = "[G]raph",
             },
         },
         opts = {
@@ -60,8 +75,13 @@ return {
             hooks = {
                 -- Check diff of a commit
                 on_select_commit = function(commit)
-                    vim.notify('CodeDiff ' .. commit.hash)
-                    vim.cmd(':CodeDiff ' .. commit.hash)
+                    vim.notify('DiffviewOpen ' .. commit.hash .. '^!')
+                    vim.cmd(':DiffviewOpen ' .. commit.hash .. '^!')
+                end,
+                -- Check diff from commit a -> commit b
+                on_select_range_commit = function(from, to)
+                    vim.notify('DiffviewOpen ' .. from.hash .. '~1..' .. to.hash)
+                    vim.cmd(':DiffviewOpen ' .. from.hash .. '~1..' .. to.hash)
                 end,
             },
         },
