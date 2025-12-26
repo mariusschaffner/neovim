@@ -10,8 +10,8 @@ return {
     },
     config = function()
       vim.diagnostic.config({
-        virtual_lines = true,
-        -- virtual_text = false,
+        -- virtual_lines = true,
+        virtual_text = true,
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
         underline = true,

@@ -53,6 +53,7 @@ return {
         { "<leader>g",  group = "[G]it" },
         { "<leader>w",  group = "[W]indow" },
         { "<leader>R",  group = "[R]est Client" },
+        { "<leader>d",  group = "[D]ebug" },
       },
     },
   },
