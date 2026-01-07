@@ -145,11 +145,11 @@ vim.opt.autoindent = true
 vim.opt.colorcolumn = "90"
 
 -- Use nicer characters for window separators
--- vim.opt.fillchars = {
---   horiz = "─",
---   horizup = "┴",
---   horizdown = "┬",
--- }
+vim.opt.fillchars = {
+  horiz = "─",
+  horizup = "┴",
+  horizdown = "┬",
+}
 
 -- border for all floats
 vim.o.winborder = 'rounded'
