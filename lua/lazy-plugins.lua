@@ -1,7 +1,11 @@
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+  require("core.blink-cmp"),
+  require("core.treesitter"),
+  require("core.lspconfig"),
+  require("core.debug"),
+
   require("plugins.which-key"),
-  require("plugins.treesitter"),
   require("plugins.toggleterm"),
   require("plugins.theme"),
   require("plugins.snacks"),
@@ -9,11 +13,9 @@ require("lazy").setup({
   require("plugins.multicursor"),
   require("plugins.markdown"),
   require("plugins.git"),
-  require("plugins.blink-cmp"),
   require("plugins.conform"),
   require("plugins.autopairs"),
-  require("plugins.lspconfig"),
-  require("plugins.debug"),
+  require("plugins.winseperator"),
 }, {
   ui = {
     backdrop = false,

@@ -31,7 +31,7 @@ return {
             vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "NONE" })
 
             -- change global win seperator
-            vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#00f2ff" })
+            vim.api.nvim_set_hl(0, "ColorfulWinSep", { fg = "#ffa502" })
         end,
     },
 }

@@ -16,11 +16,10 @@ vim.opt.relativenumber = true
 vim.opt.showmode = false
 
 -- Use a global statusline instead of one per window
-vim.opt.laststatus = 3
+vim.opt.laststatus = 2
 
 -- Hide the command line
 vim.opt.cmdheight = 0
-
 
 -- ---------------------------------------------------------
 -- Clipboard
@@ -146,11 +145,11 @@ vim.opt.autoindent = true
 vim.opt.colorcolumn = "90"
 
 -- Use nicer characters for window separators
-vim.opt.fillchars = {
-  horiz = "─",
-  horizup = "┴",
-  horizdown = "┬",
-}
+-- vim.opt.fillchars = {
+--   horiz = "─",
+--   horizup = "┴",
+--   horizdown = "┬",
+-- }
 
 -- border for all floats
 vim.o.winborder = 'rounded'
@@ -160,6 +159,7 @@ vim.o.winborder = 'rounded'
 -- ---------------------------------------------------------
 -- Ask for confirmation instead of erroring on unsaved changes
 vim.opt.confirm = true
+
 -- ---------------------------------------------------------
 -- Diff behavior
 -- ---------------------------------------------------------
