@@ -16,5 +16,10 @@ return {
                 return vim.o.lines
             end,
         },
+        highlights = {
+            FloatBorder = {
+                guifg = "#ffa502",
+            },
+        },
     },
 }
