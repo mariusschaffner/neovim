@@ -12,11 +12,11 @@ return {
         },
     },
     {
-        "esmuellert/vscode-diff.nvim",
+        "esmuellert/codediff.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         cmd = "CodeDiff",
         config = function()
-            require("vscode-diff").setup({
+            require("codediff").setup({
                 keymaps = {
                     view = {
                         quit = "q",                    -- Close diff tab
