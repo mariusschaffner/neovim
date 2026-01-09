@@ -62,12 +62,4 @@ return {
             },
         },
     },
-    {
-        "yutkat/git-rebase-auto-diff.nvim",
-        ft = { "gitrebase" },
-        opts = {
-            size = vim.fn.float2nr(vim.o.lines * 0.5),
-            run_show = false,
-        },
-    },
 }
