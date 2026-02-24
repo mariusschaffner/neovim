@@ -36,33 +36,6 @@ return {
         end,
     },
     {
-        'isakbm/gitgraph.nvim',
-        ---@type I.GGConfig
-        keys = {
-            {
-                "<leader>G",
-                function()
-                    require('gitgraph').draw({}, { all = true, max_count = 5000 })
-                end,
-                desc = "[G]raph",
-            },
-        },
-        opts = {
-            git_cmd = "git",
-            format = {
-                timestamp = '%H:%M:%S %d-%m-%Y',
-                fields = { 'hash', 'timestamp', 'author', 'branch_name', 'tag' },
-            },
-            hooks = {
-                -- Check diff of a commit
-                on_select_commit = function(commit)
-                    vim.notify('CodeDiff ' .. commit.hash)
-                    vim.cmd(':CodeDiff ' .. commit.hash)
-                end,
-            },
-        },
-    },
-    {
         "NeogitOrg/neogit",
         lazy = true,
         dependencies = {
@@ -71,19 +44,15 @@ return {
             "folke/snacks.nvim",        -- optional
         },
         cmd = "Neogit",
-        --keys = {
-        --    { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" }
-        --}
+        keys = {
+            { "<leader>gg", "<cmd>Neogit<cr>", desc = "[G]it Neogit UI" },
+        },
         opts = {
-            kind = "floating",
-            -- Floating window style
-            floating = {
-                relative = "editor",
-                width = 0.8,
-                height = 0.7,
-                style = "minimal",
-                border = "rounded",
+            sections = {
+                recent = {
+                    folded = false,
+                },
             },
-        }
-    }
+        },
+    },
 }
