@@ -62,4 +62,28 @@ return {
             },
         },
     },
+    {
+        "NeogitOrg/neogit",
+        lazy = true,
+        dependencies = {
+            "nvim-lua/plenary.nvim",    -- required
+            "esmuellert/codediff.nvim", -- optional
+            "folke/snacks.nvim",        -- optional
+        },
+        cmd = "Neogit",
+        --keys = {
+        --    { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" }
+        --}
+        opts = {
+            kind = "floating",
+            -- Floating window style
+            floating = {
+                relative = "editor",
+                width = 0.8,
+                height = 0.7,
+                style = "minimal",
+                border = "rounded",
+            },
+        }
+    }
 }
