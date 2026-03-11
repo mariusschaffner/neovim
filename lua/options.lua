@@ -6,8 +6,8 @@
 -- Line numbers
 -- ---------------------------------------------------------
 -- Show absolute and relative line number
-vim.opt.number = true
-vim.opt.relativenumber = true
+-- vim.opt.number = true
+-- vim.opt.relativenumber = true
 
 -- ---------------------------------------------------------
 -- Status & command line UI
@@ -16,7 +16,7 @@ vim.opt.relativenumber = true
 vim.opt.showmode = false
 
 -- Use a global statusline instead of one per window
-vim.opt.laststatus = 2
+vim.opt.laststatus = 0
 
 -- Hide the command line
 vim.opt.cmdheight = 0

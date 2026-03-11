@@ -14,7 +14,6 @@ require("lazy").setup({
   require("plugins.conform"),
   require("plugins.autopairs"),
   require("plugins.winseperator"),
-  require("plugins.lualine"),
 }, {
   ui = {
     backdrop = false,
