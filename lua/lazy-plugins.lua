@@ -9,7 +9,6 @@ require("lazy").setup({
   require("plugins.snacks"),
   require("plugins.rest"),
   require("plugins.multicursor"),
-  require("plugins.markdown"),
   require("plugins.git"),
   require("plugins.conform"),
   require("plugins.autopairs"),
