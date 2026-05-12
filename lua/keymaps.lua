@@ -12,11 +12,6 @@ keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", {
   desc = "Clear search highlights",
 })
 
--- Exit terminal mode more easily
-keymap("t", "<Esc><Esc>", "<C-\\><C-n>", {
-  desc = "Exit terminal mode",
-})
-
 -- ---------------------------------------------------------
 -- Navigation discipline
 -- ---------------------------------------------------------
@@ -129,16 +124,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo.filetype = "yaml.ansible"
   end,
 })
-
--- ---------------------------------------------------------
--- Optional: automatic diagnostic hover (disabled)
--- ---------------------------------------------------------
--- Automatically show diagnostics under the cursor when idle.
--- vim.api.nvim_create_autocmd("CursorHold", {
---   callback = function()
---     vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
---   end,
--- })
 
 -- ---------------------------------------------------------
 -- Plugin specific keymaps
