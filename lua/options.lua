@@ -16,7 +16,7 @@
 vim.opt.showmode = false
 
 -- Use a global statusline instead of one per window
-vim.opt.laststatus = 0
+vim.opt.laststatus = 1
 
 -- Hide the command line
 vim.opt.cmdheight = 0
