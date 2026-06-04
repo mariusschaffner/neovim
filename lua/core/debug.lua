@@ -40,8 +40,8 @@ return {
                     position = "bottom",
                     size = 12, -- rows tall
                     elements = {
-                        { id = "repl",    size = 0.6 },
-                        { id = "console", size = 0.4 },
+                        { id = "repl",    size = 0.4 },
+                        { id = "console", size = 0.6 },
                     },
                 },
             },
@@ -60,6 +60,35 @@ return {
             vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
         end
 
+        local debug_hl_ns = vim.api.nvim_create_namespace("dap_debug_bg")
+
+        local function set_debug_bg()
+            vim.api.nvim_set_hl(0, "NormalDebug", { bg = "#57606f" })
+            local session = require("dap").session()
+            if not session then return end
+            local program = session.config.program -- the file being debugged
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+                local buf = vim.api.nvim_win_get_buf(win)
+                local name = vim.api.nvim_buf_get_name(buf)
+                if name == program then
+                    vim.api.nvim_win_call(win, function()
+                        vim.opt_local.winhighlight = "Normal:NormalDebug"
+                    end)
+                end
+            end
+        end
+
+        local function clear_debug_bg()
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+                vim.api.nvim_win_call(win, function()
+                    vim.opt_local.winhighlight = ""
+                end)
+            end
+        end
+
+        dap.listeners.after.event_initialized["debug_bg"]     = set_debug_bg
+        dap.listeners.before.event_terminated["debug_bg"]     = clear_debug_bg
+        dap.listeners.before.event_exited["debug_bg"]         = clear_debug_bg
         dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
         dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
         dap.listeners.before.event_exited["dapui_config"]     = function() dapui.close() end
