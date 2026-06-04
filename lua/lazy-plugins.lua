@@ -3,6 +3,7 @@ require("lazy").setup({
   require("core.blink-cmp"),
   require("core.treesitter"),
   require("core.lspconfig"),
+  require("core.debug"),
 
   require("plugins.which-key"),
   require("plugins.theme"),
