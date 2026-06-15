@@ -1,7 +1,7 @@
 {
   "LuaSnip": { "branch": "master", "commit": "5a1e39223db9a0498024a77b8441169d260c8c25" },
   "blink.cmp": { "branch": "main", "commit": "4b18c32adef2898f95cdef6192cbd5796c1a332d" },
-  "codediff.nvim": { "branch": "main", "commit": "8a785f0cb4e721c2e07bfc303f7fc2d3513a6cfb" },
+  "codediff.nvim": { "branch": "main", "commit": "5d6aa753797a0ebda14dd769ed03d12a320d689b" },
   "colorful-winsep.nvim": { "branch": "main", "commit": "84432d9966fafaa08dd9040c98b0011045d8e964" },
   "conform.nvim": { "branch": "master", "commit": "086a40dc7ed8242c03be9f47fbcee68699cc2395" },
   "fidget.nvim": { "branch": "main", "commit": "7fa433a83118a70fe24c1ce88d5f0bd3453c0970" },
@@ -14,7 +14,7 @@
   "mason-tool-installer.nvim": { "branch": "main", "commit": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc" },
   "mason.nvim": { "branch": "main", "commit": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65" },
   "multicursor.nvim": { "branch": "1.0", "commit": "811681faf44d8031685614cc00a148cd3ece697c" },
-  "neogit": { "branch": "master", "commit": "b8bfe77ba9a350ce8ea05c38133e28d776a6457c" },
+  "neogit": { "branch": "master", "commit": "99326a1310fb2d616b455d2fd16d01bf00682f06" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
   "nvim-autopairs": { "branch": "master", "commit": "59bce2eef357189c3305e25bc6dd2d138c1683f5" },
   "nvim-dap": { "branch": "master", "commit": "531771530d4f82ad2d21e436e3cc052d68d7aebb" },

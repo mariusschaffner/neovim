@@ -9,6 +9,9 @@ return {
             -- highlight cursor line
             vim.api.nvim_set_hl(0, "CursorLine", { bg = "#3e4452" })
 
+            -- change base white
+            vim.api.nvim_set_hl(0, "Normal", { fg = "#FFFEFE" })
+
             -- change diffview colors
             vim.api.nvim_set_hl(0, "DiffAdd", { fg = "NONE", bg = "#1e4620" })
             vim.api.nvim_set_hl(0, "DiffDelete", { fg = "NONE", bg = "#462020" })
