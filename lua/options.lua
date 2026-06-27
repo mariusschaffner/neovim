@@ -42,7 +42,7 @@ vim.opt.linebreak = true
 vim.opt.breakindent = true
 
 -- Character shown at the start of wrapped lines
-vim.opt.showbreak = "↪ "
+vim.opt.showbreak = "↪  "
 
 -- ---------------------------------------------------------
 -- Undo & backup behavior
