@@ -7,3 +7,5 @@ vim.g.have_nerd_font = true
 
 -- Set proper c compiler (requires gcc.exe from mingw32)
 vim.env.CC = "gcc"
+
+require('vim._core.ui2').enable({})
