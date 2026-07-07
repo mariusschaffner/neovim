@@ -35,6 +35,17 @@ local servers = {
     terraformls = {},
     basedpyright = {},
     powershell_es = {},
+    ansiblels = {
+        settings = {
+            ansible = {
+                validation = {
+                    lint = {
+                        enabled = false,
+                    },
+                },
+            },
+        },
+    },
 }
 
 for name, cfg in pairs(servers) do
