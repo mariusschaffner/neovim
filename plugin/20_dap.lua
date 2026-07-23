@@ -63,23 +63,23 @@ for type, icon in pairs(breakpoint_icons) do
 end
 
 local debug_hl_ns = vim.api.nvim_create_namespace("dap_debug_bg")
-
 local function set_debug_bg()
     vim.api.nvim_set_hl(0, "NormalDebug", { bg = "#57606f" })
     local session = require("dap").session()
     if not session then return end
-    local program = session.config.program
+    -- debugpy (Python) uses `program`; PowerShell adapters (powershell.nvim,
+    -- nvim-dap-powershell) use `script` instead — check both.
+    local target = session.config.program or session.config.script
     for _, win in ipairs(vim.api.nvim_list_wins()) do
         local buf = vim.api.nvim_win_get_buf(win)
         local name = vim.api.nvim_buf_get_name(buf)
-        if name == program then
+        if name == target then
             vim.api.nvim_win_call(win, function()
                 vim.opt_local.winhighlight = "Normal:NormalDebug"
             end)
         end
     end
 end
-
 local function clear_debug_bg()
     for _, win in ipairs(vim.api.nvim_list_wins()) do
         vim.api.nvim_win_call(win, function()
