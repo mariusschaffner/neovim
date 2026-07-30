@@ -4,7 +4,6 @@ vim.pack.add({
 })
 
 require("snacks").setup({
-    explorer = { enabled = true },
     indent = {
         enabled = true,
         char = "│",
@@ -26,68 +25,52 @@ require("snacks").setup({
     },
     picker = {
         enabled = true,
-        layout = {
-            preset = "telescope",
-            layout = {
-                box = "horizontal",
-                backdrop = false,
-                width = 0.9,
-                height = 0.9,
-                border = true,
-                {
+        -- register custom layouts here, referenced by name below
+        layouts = {
+            stacked = {
+                layout = {
                     box = "vertical",
-                    {
-                        win = "preview",
-                        title = "{preview:Preview}",
-                        border = "bottom",
-                        title_pos = "center",
-                    },
-                    { win = "input", height = 1,          border = "bottom",    title = "{title} {live} {flags}", title_pos = "center" },
-                    { win = "list",  title = " Results ", title_pos = "center", border = false },
+                    width = 0.8,
+                    height = 0.9,
+                    border = true,
+                    backdrop = false,
+                    { win = "list",    title = " Results ",         title_pos = "center", border = "bottom" },
+                    { win = "input",   height = 1,                  border = "bottom",    title = "{title} {live} {flags}", title_pos = "center" },
+                    { win = "preview", title = "{preview:Preview}", border = false },
                 },
             },
+        },
+        layout = {
+            preset = "stacked", -- your new default, just a name now
         },
         hidden = true,
         ignored = true,
         sources = {
-            explorer = {
-                tree = true,
-                watch = true,
-                diagnostics = true,
-                diagnostics_open = true,
-                git_status = true,
-                git_status_open = true,
-                git_untracked = true,
-                follow_file = true,
-                focus = "list",
-                auto_close = false,
+            files = {
                 layout = {
-                    preset = "sidebar",
-                    preview = false,
-                    hidden = { "input" },
+                    preset = "ivy",
+                    hidden = { "preview" },
                     layout = {
-                        position = "right",
-                        backdrop = false,
-                        row = 1,
-                        width = 0.3,
-                        min_width = 45,
-                        height = 0.7,
-                        border = false,
-                        box = "vertical",
-                        { win = "input",   height = 1,          border = true, title = "{title} {live} {flags}", title_pos = "center" },
-                        { win = "list",    border = "hpad" },
-                        { win = "preview", title = "{preview}", border = true },
+                        position = "bottom",
+                        preview = false,
                     },
                 },
-                win = {
-                    list = {
-                        keys = {
-                            ["s"] = "edit_split",
-                            ["S"] = "edit_vsplit",
-                        },
+                hidden = true,
+                ignored = true,
+                follow = true,
+            },
+            lines = {
+                layout = {
+                    preset = "ivy",
+                    layout = {
+                        position = "bottom",
                     },
                 },
             },
+            buffers = { layout = { preset = "vscode" } },
+            keymaps = { layout = { preset = "vscode" } },
+            diagnostics = { layout = { preset = "vscode" } },
+            git_branches = { layout = { preset = "vscode" } },
         },
     },
 })
@@ -95,15 +78,15 @@ require("snacks").setup({
 local map = vim.keymap.set
 
 -- GLOBAL
-map("n", "<leader>e", function() Snacks.explorer() end, { desc = "[E]xplorer" })
+map("n", "<leader>e", function() Snacks.picker.files() end, { desc = "[E]xplorer" })
 map("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "[/]" })
 
 -- SEARCH / GREP
 map("n", "<leader>sb", function() Snacks.picker.buffers() end, { desc = "[S]earch [B]uffers" })
 map("n", "<leader>sB", function() Snacks.picker.grep_buffers() end, { desc = "[S]earch [O]pen [B]uffers" })
-map("n", "<leader>sf", function() Snacks.picker.files() end, { desc = "[S]earch [F]iles" })
 map("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "[S]earch [K]eymaps" })
 map("n", "<leader>sd", function() Snacks.picker.diagnostics() end, { desc = "[S]earch [D]iagnostics" })
+map("n", "<leader>sl", function() Snacks.picker.lines() end, { desc = "[S]earch [L]ines" })
 map({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "[S]earch [W]ord" })
 map("n", "<leader>sh", function() Snacks.picker.undo() end, { desc = "[S]earch [H]istory" })
 map("n", "<leader>sc", function() Snacks.picker.resume() end, { desc = "[S]earch [C]ontinue" })

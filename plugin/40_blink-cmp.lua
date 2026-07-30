@@ -17,11 +17,12 @@ require("blink.cmp").setup({
     },
     completion = {
         menu = {
+            scrollbar = false,
             border = "rounded",
             draw = {
                 columns = {
                     { "label",     "label_description", gap = 1 },
-                    { "kind_icon", "kind" },
+                    { "kind_icon", "kind",              gap = 1 },
                 },
                 components = {
                     label = {
@@ -36,6 +37,7 @@ require("blink.cmp").setup({
             auto_show_delay_ms = 250,
             treesitter_highlighting = true,
             window = {
+                scrollbar = false,
                 border = "rounded",
             },
         },

@@ -22,7 +22,7 @@ vim.opt.cmdheight = 0
 -- ---------------------------------------------------------
 -- Sync Neovim clipboard with the system clipboard
 vim.schedule(function()
-  vim.opt.clipboard = "unnamedplus"
+    vim.opt.clipboard = "unnamedplus"
 end)
 
 -- ---------------------------------------------------------
@@ -92,9 +92,9 @@ vim.opt.list = true
 
 -- Define which characters to display
 vim.opt.listchars = {
-  tab = "» ",
-  trail = "·",
-  nbsp = "␣",
+    tab = "» ",
+    trail = "·",
+    nbsp = "␣",
 }
 
 -- ---------------------------------------------------------
@@ -142,9 +142,9 @@ vim.opt.colorcolumn = "90"
 
 -- Use nicer characters for window separators
 vim.opt.fillchars = {
-  horiz = "─",
-  horizup = "┴",
-  horizdown = "┬",
+    horiz = "─",
+    horizup = "┴",
+    horizdown = "┬",
 }
 
 -- border for all floats
