@@ -4,7 +4,9 @@ vim.pack.add({
     { src = "https://github.com/MunifTanjim/nui.nvim" },
     { src = "https://github.com/NeogitOrg/neogit" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/folke/snacks.nvim" }, -- already added in snacks.lua; vim.pack will no-op the dupe
+    { src = "https://github.com/folke/snacks.nvim" },
+    { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+    { src = "https://github.com/emrearmagan/atlas.nvim" },
 })
 
 require("gitsigns").setup({
@@ -31,6 +33,64 @@ require("codediff").setup({
             select = "<CR>",
             hover = "K",
             refresh = "R",
+        },
+    },
+})
+
+local function current_gitlab_project()
+    local remote = vim.fn.systemlist("git config --get remote.origin.url")[1]
+    if not remote or remote == "" then
+        return nil
+    end
+
+    local path = remote:match("^git@[^:]+:(.+)$")
+
+    if not path then
+        path = remote:match("^https?://[^/]+/(.+)$")
+    end
+
+    if not path then
+        return nil
+    end
+
+    return (path:gsub("%.git$", ""))
+end
+
+local project = current_gitlab_project()
+
+local pulls_views = {
+    { name = "Open",      key = "1", order_by = "updated_at", state = "open", project = project },
+    { name = "Assigned",  key = "2", order_by = "updated_at", state = "open", scope = "assigned_to_me", project = project },
+    { name = "Reviewing", key = "3", order_by = "updated_at", state = "open", scope = "all",            project = project, extra_params = { reviewer_id = "133" } },
+    { name = "All",       key = "4", order_by = "updated_at", state = "all",  project = project },
+}
+
+require("atlas").setup({
+    pulls = {
+        diff = {
+            open_cmd = "AtlasDiff",
+        },
+        providers = {
+            gitlab = {
+                base_url = "https://gitlab.vertec.com",
+                token = vim.env.GITLAB_TOKEN,
+                cache_ttl = 300,
+                views = pulls_views,
+            },
+        },
+    },
+    issues = {
+        providers = {
+            gitlab = {
+                base_url = "https://gitlab.vertec.com",
+                token = vim.env.GITLAB_TOKEN,
+                cache_ttl = 300,
+                views = {
+                    { name = "Assigned", key = "1", scope = "assigned_to_me", state = "opened", order_by = "updated_at" },
+                    { name = "Created",  key = "2", scope = "created_by_me",  state = "opened", order_by = "updated_at" },
+                    { name = "All",      key = "3", scope = "all",            state = "opened", order_by = "updated_at" },
+                },
+            },
         },
     },
 })
