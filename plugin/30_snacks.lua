@@ -45,6 +45,20 @@ require("snacks").setup({
         },
         hidden = true,
         ignored = true,
+        win = {
+            input = {
+                keys = {
+                    ["<C-s>"] = { "edit_split", mode = { "i", "n" } },
+                    ["<C-t>"] = { "edit_vsplit", mode = { "i", "n" } },
+                },
+            },
+            list = {
+                keys = {
+                    ["<C-s>"] = "edit_split",
+                    ["<C-t>"] = "edit_vsplit",
+                },
+            },
+        },
         sources = {
             files = {
                 layout = {

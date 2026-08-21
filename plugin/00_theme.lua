@@ -36,6 +36,26 @@ require("kanagawa").setup({
             RenderMarkdownH4 = { fg = '#1e232e' },
             RenderMarkdownH5 = { fg = '#1e232e' },
             RenderMarkdownH6 = { fg = '#1e232e' },
+            StatusLine = { bg = "None" },
+            StBase = { link = "StatusLine" },
+            StModeNormal = { fg = theme.ui.bg, bg = theme.syn.fun, bold = true },
+            StModeInsert = { fg = theme.ui.bg, bg = theme.diag.ok, bold = true },
+            StModeVisual = { fg = theme.ui.bg, bg = theme.syn.keyword, bold = true },
+            StModeOther = { fg = theme.ui.bg, bg = theme.vcs.changed, bold = true },
+
+            StGitBranch = { fg = theme.syn.fun, bold = true },
+            StGitAdd = { fg = theme.vcs.added },
+            StGitChange = { fg = theme.vcs.changed },
+            StGitDelete = { fg = theme.vcs.removed },
+
+            FileModifiedIcon = { fg = theme.vcs.changed, bold = true },
+
+            ErrorHl = { link = "DiagnosticError" },
+            WarningHl = { link = "DiagnosticWarn" },
+            HintsHl = { link = "DiagnosticHint" },
+            InfoHl = { link = "DiagnosticInfo" },
+
+            RecordingHl = { fg = theme.diag.error, bold = true },
         }
     end,
 })
