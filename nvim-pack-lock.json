@@ -1,7 +1,7 @@
 {
   "plugins": {
     "atlas.nvim": {
-      "rev": "11ad962841eae47b9448dda008db7a9725c727fc",
+      "rev": "fe9c1d4a9cfdb5cd5ae51996917a156b48ac1a7d",
       "src": "https://github.com/emrearmagan/atlas.nvim"
     },
     "blink.cmp": {

@@ -59,16 +59,21 @@ end
 local project = current_gitlab_project()
 
 local pulls_views = {
-    { name = "Open",      key = "1", order_by = "updated_at", state = "open", project = project },
-    { name = "Assigned",  key = "2", order_by = "updated_at", state = "open", scope = "assigned_to_me", project = project },
-    { name = "Reviewing", key = "3", order_by = "updated_at", state = "open", scope = "all",            project = project, extra_params = { reviewer_id = "133" } },
-    { name = "All",       key = "4", order_by = "updated_at", state = "all",  project = project },
+    { name = "Assigned to Me", key = "1", order_by = "updated_at", state = "open", scope = "assigned_to_me", project = project },
+    { name = "Reviewing",      key = "2", order_by = "updated_at", state = "open", scope = "all",            project = project, extra_params = { reviewer_id = "133" } },
+    { name = "Open",           key = "3", order_by = "updated_at", state = "open", project = project },
 }
 
 require("atlas").setup({
     pulls = {
         diff = {
             open_cmd = "AtlasDiff",
+            layout = "inline",
+            compact = false,
+            explorer = {
+                hidden = false,
+                show_commits = true,
+            },
         },
         providers = {
             gitlab = {
@@ -86,9 +91,11 @@ require("atlas").setup({
                 token = vim.env.GITLAB_TOKEN,
                 cache_ttl = 300,
                 views = {
-                    { name = "Assigned", key = "1", scope = "assigned_to_me", state = "opened", order_by = "updated_at" },
-                    { name = "Created",  key = "2", scope = "created_by_me",  state = "opened", order_by = "updated_at" },
-                    { name = "All",      key = "3", scope = "all",            state = "opened", order_by = "updated_at" },
+                    -- { name = "Assigned to Me", key = "1", scope = "assigned_to_me", state = "opened", order_by = "updated_at" },
+                    { name = "WF:Doing",      key = "2", scope = "assigned_to_me", state = "opened", order_by = "updated_at", extra_params = { labels = "WF:Doing" } },
+                    { name = "WF:Review",     key = "3", scope = "assigned_to_me", state = "opened", order_by = "updated_at", extra_params = { labels = "WF:Review" } },
+                    { name = "WF:Deployment", key = "4", scope = "assigned_to_me", state = "opened", order_by = "updated_at", extra_params = { labels = "WF:Deployment" } },
+                    { name = "All",           key = "5", scope = "all",            state = "opened", order_by = "updated_at" },
                 },
             },
         },

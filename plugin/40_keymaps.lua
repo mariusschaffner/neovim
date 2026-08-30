@@ -102,10 +102,10 @@ keymap("n", "<leader>wm", "<cmd>only<CR>", {
 -- ---------------------------------------------------------
 -- Diagnostics
 -- ---------------------------------------------------------
-keymap('n', '<leader>d',    vim.diagnostic.open_float, { desc = 'Show diagnostic' })
-keymap('n', '[d',           vim.diagnostic.goto_prev,  { desc = 'Previous diagnostic' })
-keymap('n', ']d',           vim.diagnostic.goto_next,  { desc =  'Next diagnostic' })
-keymap('n', '<leader>dl',   vim.diagnostic.setloclist, { desc = 'Diagnostic list' })
+keymap('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show diagnostic' })
+keymap('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous diagnostic' })
+keymap('n', ']d', vim.diagnostic.goto_next, { desc = 'Next diagnostic' })
+keymap('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Diagnostic list' })
 
 -- ---------------------------------------------------------
 -- Plugin specific keymaps
@@ -113,5 +113,7 @@ keymap('n', '<leader>dl',   vim.diagnostic.setloclist, { desc = 'Diagnostic list
 -- GIT
 vim.keymap.set("n", "<leader>gd", ":CodeDiff<CR>", { desc = "[G]it [D]iff" })
 vim.keymap.set("n", "<leader>gb", ":Gitsigns blame<CR>", { desc = "[G]it [b]lame" })
+vim.keymap.set("n", "<leader>gi", ":Atlas issues<CR>", { desc = "[G]itlab [i]ssues" })
+vim.keymap.set("n", "<leader>gm", ":Atlas pulls<CR>", { desc = "[G]itlab [m]erge_requests" })
 
 -- vim: ts=2 sts=2 sw=2 et
