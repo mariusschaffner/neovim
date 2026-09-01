@@ -25,7 +25,6 @@ require("snacks").setup({
     },
     picker = {
         enabled = true,
-        -- register custom layouts here, referenced by name below
         layouts = {
             stacked = {
                 layout = {
@@ -41,7 +40,7 @@ require("snacks").setup({
             },
         },
         layout = {
-            preset = "stacked", -- your new default, just a name now
+            preset = "stacked",
         },
         hidden = true,
         ignored = true,
@@ -72,14 +71,13 @@ require("snacks").setup({
                 hidden = true,
                 ignored = true,
                 follow = true,
+                exclude = { ".git", "venv", ".terraform" }
             },
-            lines = {
-                layout = {
-                    preset = "ivy",
-                    layout = {
-                        position = "bottom",
-                    },
-                },
+            grep = {
+                exclude = { ".git", "venv", ".terraform" }
+            },
+            grep_word = {
+                exclude = { ".git", "venv", ".terraform" }
             },
             buffers = { layout = { preset = "vscode" } },
             keymaps = { layout = { preset = "vscode" } },
@@ -91,27 +89,19 @@ require("snacks").setup({
 
 local map = vim.keymap.set
 
--- GLOBAL
 map("n", "<leader>e", function() Snacks.picker.files() end, { desc = "[E]xplorer" })
 map("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "[/]" })
-
--- SEARCH / GREP
 map("n", "<leader>sb", function() Snacks.picker.buffers() end, { desc = "[S]earch [B]uffers" })
 map("n", "<leader>sB", function() Snacks.picker.grep_buffers() end, { desc = "[S]earch [O]pen [B]uffers" })
 map("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "[S]earch [K]eymaps" })
 map("n", "<leader>sd", function() Snacks.picker.diagnostics() end, { desc = "[S]earch [D]iagnostics" })
-map("n", "<leader>sl", function() Snacks.picker.lines() end, { desc = "[S]earch [L]ines" })
 map({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "[S]earch [W]ord" })
 map("n", "<leader>sh", function() Snacks.picker.undo() end, { desc = "[S]earch [H]istory" })
 map("n", "<leader>sc", function() Snacks.picker.resume() end, { desc = "[S]earch [C]ontinue" })
-
--- GIT
 map("n", "<leader>gB", function() Snacks.picker.git_branches() end, { desc = "[G]it [B]ranches" })
 map("n", "<leader>gl", function() Snacks.picker.git_log({ preview = "git_show" }) end, { desc = "[G]it [L]og" })
 map("n", "<leader>gL", function() Snacks.picker.git_log_line() end, { desc = "[G]it [L]og Line" })
 map("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "[G]it [S]tatus" })
-
--- LSP
 map("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition" })
 map("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration" })
 map("n", "gr", function() Snacks.picker.lsp_references() end, { desc = "References", nowait = true })

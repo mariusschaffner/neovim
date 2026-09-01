@@ -1,4 +1,3 @@
--- Set LSP related keymaps on lsp attach
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('lsp_keymaps', { clear = true }),
     callback = function(ev)
@@ -29,7 +28,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
--- Highlight yanked text briefly for visual feedback
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight on yank",
     group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
@@ -38,7 +36,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
--- Treat YAML files as Ansible YAML
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "*.yml", "*.yaml" },
     desc = "Set Ansible filetype for YAML files",

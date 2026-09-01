@@ -42,45 +42,18 @@ require("kanagawa").setup({
             StModeInsert = { fg = theme.ui.bg, bg = theme.diag.ok, bold = true },
             StModeVisual = { fg = theme.ui.bg, bg = theme.syn.keyword, bold = true },
             StModeOther = { fg = theme.ui.bg, bg = theme.vcs.changed, bold = true },
-
             StGitBranch = { fg = theme.syn.fun, bold = true },
             StGitAdd = { fg = theme.vcs.added },
             StGitChange = { fg = theme.vcs.changed },
             StGitDelete = { fg = theme.vcs.removed },
-
             FileModifiedIcon = { fg = theme.vcs.changed, bold = true },
-
             ErrorHl = { link = "DiagnosticError" },
             WarningHl = { link = "DiagnosticWarn" },
             HintsHl = { link = "DiagnosticHint" },
             InfoHl = { link = "DiagnosticInfo" },
-
             RecordingHl = { fg = theme.diag.error, bold = true },
         }
     end,
 })
 
-
--- vim.api.nvim_create_autocmd("ColorScheme", {
---   pattern = "onedark_vivid",
---   callback = function()
---     -- change diffview colors
---     vim.api.nvim_set_hl(0, "DiffAdd", { fg = "NONE", bg = "#1e4620" })
---     vim.api.nvim_set_hl(0, "DiffDelete", { fg = "NONE", bg = "#462020" })
---     vim.api.nvim_set_hl(0, "DiffChange", { fg = "NONE", bg = "#1e3a5f" })
---     vim.api.nvim_set_hl(0, "DiffText", { fg = "NONE", bg = "#265478" })
---     -- change float window colors
---     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
---     vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#00f2ff", bg = "NONE" })
---     vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = "NONE" })
---     vim.api.nvim_set_hl(0, "ToggleTermBorder", { fg = "#00f2ff", bg = "NONE" })
---     vim.api.nvim_set_hl(0, "ToggleTerm1FloatBorder", { fg = "#00f2ff", bg = "NONE" })
---     -- change floating window appearance
---     vim.api.nvim_set_hl(0, "PMenu", { bg = "NONE" })
---     vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE" })
---     vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#00f2ff", bg = "NONE" })
---     vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#820857", bg = "NONE" })
---     vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "NONE" })
---   end,
--- })
 vim.cmd("colorscheme kanagawa-wave")

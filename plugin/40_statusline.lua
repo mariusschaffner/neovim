@@ -121,7 +121,7 @@ end
 
 vim.opt.statusline = "%!v:lua.CustomStatusLine()"
 
-vim.cmd("redrawstatus") -- no need if not using any floating window from dashboard
+vim.cmd("redrawstatus")
 
 vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave", "CmdlineLeave" }, {
     callback = function()

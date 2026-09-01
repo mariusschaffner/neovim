@@ -5,12 +5,10 @@ vim.pack.add({
     { src = "https://github.com/mfussenegger/nvim-dap-python" },
 })
 
--- Load & enable plugins
 local dap                                  = require('dap')
 require("dap").defaults.fallback.switchbuf = "usevisible,usetab,newtab"
 local dapview                              = require('dap-view')
 
--- Set keymaps
 vim.keymap.set('n', '<leader>ds', function() dap.continue() end, { desc = '[D]ebug: [S]tart (continue)' })
 vim.keymap.set('n', '<leader>di', function() dap.step_into() end, { desc = '[D]ebug: Step [I]nto' })
 vim.keymap.set('n', '<leader>do', function() dap.step_over() end, { desc = '[D]ebug: Step [O]ver' })
@@ -18,15 +16,13 @@ vim.keymap.set('n', '<leader>dO', function() dap.step_out() end, { desc = '[D]eb
 vim.keymap.set('n', '<leader>db', function() dap.toggle_breakpoint() end, { desc = '[D]ebug: Toggle [B]reakpoint' })
 vim.keymap.set('n', '<leader>du', function() vim.cmd('DapViewToggle') end, { desc = '[D]ebug: Toggle [U]I' })
 
--- Auto install predefined debug adapters
 require('mason').setup({})
 require('mason-nvim-dap').setup {
-    automatic_installation = true,
+    -- automatic_installation = true,
+    -- ensure_installed = { "python" },
     handlers = {},
-    ensure_installed = { "python" },
 }
 
--- Configure debugging UI
 dapview.setup({
     auto_toggle = true,
     winbar = {
@@ -53,7 +49,6 @@ for type, icon in pairs(breakpoint_icons) do
     vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
 end
 
--- Enable different highlight for script buffer during debug session
 local debug_hl_ns = vim.api.nvim_create_namespace("dap_debug_bg")
 
 local function set_debug_bg()
@@ -80,7 +75,6 @@ local function clear_debug_bg()
     end
 end
 
--- Enable the Powershell debugging stdout console
 local ps_term_open = false
 
 local function find_dap_view_win()
@@ -116,7 +110,6 @@ local function close_ps_term(session)
     end
 end
 
--- Disable edits in the script buffer during debug session
 local debug_readonly_state = {}
 
 local function set_script_readonly()
@@ -142,20 +135,16 @@ local function clear_script_readonly()
     end
     debug_readonly_state = {}
 end
--- Set events on start of debug session
+
 dap.listeners.after.event_initialized["debug_bg"]        = set_debug_bg
 dap.listeners.after.event_initialized["ps_debug_term"]   = open_ps_term
 dap.listeners.after.event_initialized["script_readonly"] = set_script_readonly
-
 dap.listeners.before.event_terminated["debug_bg"]        = clear_debug_bg
 dap.listeners.before.event_terminated["ps_debug_term"]   = close_ps_term
 dap.listeners.before.event_terminated["script_readonly"] = clear_script_readonly
-
 dap.listeners.before.event_exited["debug_bg"]            = clear_debug_bg
 dap.listeners.before.event_exited["ps_debug_term"]       = close_ps_term
 dap.listeners.before.event_exited["script_readonly"]     = clear_script_readonly
 
--- enable debuggers
-require("dap-python").setup("python")
-
+-- require("dap-python").setup("python")
 -- powershell is enabled by powershell.nvim plugin
