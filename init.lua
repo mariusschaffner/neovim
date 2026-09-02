@@ -37,7 +37,7 @@ vim.pack.add({
     { src = "https://github.com/MunifTanjim/nui.nvim" },
     { src = "https://github.com/NeogitOrg/neogit" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/emrearmagan/atlas.nvim" },
+    { src = "https://github.com/mariusschaffner/atlas.nvim" },
     -- ui / pickers / icons
     { src = "https://github.com/folke/snacks.nvim" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
@@ -325,6 +325,15 @@ require("gitsigns").setup({
 })
 
 require("codediff").setup({
+    highlights = {
+        -- Line-level: accepts highlight group names or hex colors
+        line_insert = "#0c4532",
+        line_delete = "#450c0f",
+
+        -- Character-level: accepts highlight group names or hex colors
+        char_insert = "#188a64",
+        char_delete = "#b31d28",
+    },
     keymaps = {
         view = {
             quit = "q",
@@ -342,34 +351,17 @@ require("codediff").setup({
     },
 })
 
-local function current_gitlab_project()
-    local remote = vim.fn.systemlist("git config --get remote.origin.url")[1]
-    if not remote or remote == "" then
-        return nil
-    end
-
-    local path = remote:match("^git@[^:]+:(.+)$")
-
-    if not path then
-        path = remote:match("^https?://[^/]+/(.+)$")
-    end
-
-    if not path then
-        return nil
-    end
-
-    return (path:gsub("%.git$", ""))
-end
-
-local project = current_gitlab_project()
-
-local pulls_views = {
-    { name = "Assigned to Me", key = "1", order_by = "updated_at", state = "open", scope = "assigned_to_me", project = project },
-    { name = "Reviewing",      key = "2", order_by = "updated_at", state = "open", scope = "all",            project = project, extra_params = { reviewer_id = "133" } },
-    { name = "Open",           key = "3", order_by = "updated_at", state = "open", project = project },
-}
-
 require("atlas").setup({
+    ui = {
+        listed_buffer = true,
+    },
+    providers = {
+        gitlab = {
+            base_url = "https://gitlab.vertec.com",
+            token = vim.env.GITLAB_TOKEN,
+            cache_ttl = 300,
+        },
+    },
     pulls = {
         diff = {
             open_cmd = "AtlasDiff",
@@ -380,29 +372,23 @@ require("atlas").setup({
                 show_commits = true,
             },
         },
-        providers = {
-            gitlab = {
-                base_url = "https://gitlab.vertec.com",
-                token = vim.env.GITLAB_TOKEN,
-                cache_ttl = 300,
-                views = pulls_views,
-            },
+        gitlab = {
+            views = {
+                { name = "Assigned to Me", key = "1", scope = "assigned_to_me", state = "open", current_repo = true, order_by = "updated_at" },
+                { name = "WF:Review",      key = "2", scope = "all",            state = "open", current_repo = true, order_by = "updated_at", extra_params = { reviewer_id = "133" } },
+                { name = "All",            key = "3", scope = "all",            state = "open", current_repo = true, order_by = "updated_at" },
+            }
         },
     },
     issues = {
-        providers = {
-            gitlab = {
-                base_url = "https://gitlab.vertec.com",
-                token = vim.env.GITLAB_TOKEN,
-                cache_ttl = 300,
-                views = {
-                    -- { name = "Assigned to Me", key = "1", scope = "assigned_to_me", state = "opened", order_by = "updated_at" },
-                    { name = "WF:Doing",      key = "2", scope = "assigned_to_me", state = "opened", order_by = "updated_at", extra_params = { labels = "WF:Doing" } },
-                    { name = "WF:Review",     key = "3", scope = "assigned_to_me", state = "opened", order_by = "updated_at", extra_params = { labels = "WF:Review" } },
-                    { name = "WF:Deployment", key = "4", scope = "assigned_to_me", state = "opened", order_by = "updated_at", extra_params = { labels = "WF:Deployment" } },
-                    { name = "All",           key = "5", scope = "all",            state = "opened", order_by = "updated_at" },
-                },
-            },
+        gitlab = {
+            views = {
+                { name = "Assigned to Me", key = "1", scope = "assigned_to_me", state = "opened", current_repo = true, order_by = "updated_at" },
+                { name = "WF:Doing",       key = "2", scope = "all",            state = "opened", current_repo = true, order_by = "updated_at", extra_params = { labels = "WF:Doing" } },
+                { name = "WF:Review",      key = "3", scope = "all",            state = "opened", current_repo = true, order_by = "updated_at", extra_params = { labels = "WF:Review" } },
+                { name = "WF:Deployment",  key = "4", scope = "all",            state = "opened", current_repo = true, order_by = "updated_at", extra_params = { labels = "WF:Deployment" } },
+                { name = "All",            key = "5", scope = "all",            state = "opened", current_repo = true, order_by = "updated_at" },
+            }
         },
     },
 })
@@ -802,7 +788,7 @@ mc_hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
 mc_hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
 
 -- options
-vim.opt.laststatus = 1
+vim.opt.laststatus = 2
 vim.opt.cmdheight = 0
 vim.schedule(function()
     vim.opt.clipboard = "unnamedplus"
@@ -826,7 +812,7 @@ vim.opt.lazyredraw = true
 vim.opt.list = true
 vim.opt.listchars = {
     tab = "» ",
-    trail = "·",
+    trail = " ",
     nbsp = "␣",
 }
 vim.opt.inccommand = "split"
