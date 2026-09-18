@@ -45,8 +45,6 @@ vim.pack.add({
     { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/jake-stewart/multicursor.nvim",            version = "1.0" },
-    -- markdown
-    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     -- powershell
     { src = "https://github.com/TheLeoP/powershell.nvim" },
     -- treesitter
@@ -77,21 +75,6 @@ require("kanagawa").setup({
             BlinkCmpDocBorder = { fg = "#820857", bg = "NONE" },
             BlinkCmpLabelMatch = { bg = "None" },
             RenderMarkdownCode = { bg = '#273349' },
-            RenderMarkdownCodeInline = { bg = '#273349' },
-            RenderMarkdownCodeFallback = { bg = '#273349' },
-            RenderMarkdownCodeBorder = { bg = '#2d4261' },
-            RenderMarkdownH1Bg = { fg = '#1e232e', bg = '#8acefa' },
-            RenderMarkdownH2Bg = { fg = '#1e232e', bg = '#e48c7d' },
-            RenderMarkdownH3Bg = { fg = '#1e232e', bg = '#f3b172' },
-            RenderMarkdownH4Bg = { fg = '#1e232e', bg = '#f7ce76' },
-            RenderMarkdownH5Bg = { fg = '#1e232e', bg = '#5f8ead' },
-            RenderMarkdownH6Bg = { fg = '#1e232e', bg = '#42647a' },
-            RenderMarkdownH1 = { fg = '#1e232e' },
-            RenderMarkdownH2 = { fg = '#1e232e' },
-            RenderMarkdownH3 = { fg = '#1e232e' },
-            RenderMarkdownH4 = { fg = '#1e232e' },
-            RenderMarkdownH5 = { fg = '#1e232e' },
-            RenderMarkdownH6 = { fg = '#1e232e' },
             StatusLine = { bg = "None" },
             StBase = { link = "StatusLine" },
             StModeNormal = { fg = theme.ui.bg, bg = theme.syn.fun, bold = true },
@@ -366,7 +349,7 @@ require("atlas").setup({
         diff = {
             open_cmd = "AtlasDiff",
             layout = "inline",
-            compact = false,
+            compact = true,
             explorer = {
                 hidden = false,
                 show_commits = true,
@@ -706,57 +689,7 @@ keymap('n', ']d', vim.diagnostic.goto_next, { desc = 'Next diagnostic' })
 keymap('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Diagnostic list' })
 keymap("n", "<leader>gd", ":CodeDiff<CR>", { desc = "[G]it [D]iff" })
 keymap("n", "<leader>gb", ":Gitsigns blame<CR>", { desc = "[G]it [b]lame" })
-keymap("n", "<leader>gi", ":Atlas issues<CR>", { desc = "[G]itlab [i]ssues" })
-keymap("n", "<leader>gm", ":Atlas pulls<CR>", { desc = "[G]itlab [m]erge_requests" })
-
--- markdown
-require('render-markdown').setup({
-    quote = {
-        repeat_linebreak = true,
-    },
-    checkbox = {
-        enabled = true,
-        render_modes = false,
-        bullet = false,
-        left_pad = 0,
-        right_pad = 1,
-        unchecked = {
-            icon = '󰄱 ',
-            highlight = 'RenderMarkdownUnchecked',
-            scope_highlight = nil,
-        },
-        checked = {
-            icon = '󰱒 ',
-            highlight = 'RenderMarkdownChecked',
-            scope_highlight = '@markup.strikethrough',
-        },
-        custom = {
-            todo = { raw = '[-]', rendered = '󰥔 ', highlight = 'RenderMarkdownTodo', scope_highlight = nil },
-        },
-        scope_priority = nil,
-    },
-    code = {
-        priority = 14,
-        style = 'full',
-        position = 'left',
-        width = 'block',
-        left_pad = 2,
-        right_pad = 4,
-        language_icon = true,
-        language_info = true,
-        Language_name = true,
-        language_border = ' ',
-        language_left = '█',
-        language_right = '█',
-        border = 'thin',
-    },
-    heading = {
-        width = 'block',
-        left_pad = 1,
-        position = 'right',
-        icons = { '█ ', '█ █ ', '█ █ █ ', '█ █ █ █ ', '█ █ █ █ █ ', '█ █ █ █ █ █ ', },
-    }
-})
+keymap("n", "<leader>G", ":Atlas issues<CR>", { desc = "[G]itlab" })
 
 -- multicursor
 local mc = require("multicursor-nvim")
@@ -793,7 +726,7 @@ vim.opt.cmdheight = 0
 vim.schedule(function()
     vim.opt.clipboard = "unnamedplus"
 end)
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.opt.linebreak = true
 vim.opt.breakindent = true
 vim.opt.showbreak = "↪  "
