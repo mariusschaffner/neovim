@@ -1,17 +1,13 @@
 {
   "plugins": {
     "atlas.nvim": {
-      "rev": "69a4b81a3ee5cf46fc6ec11ea130105de60e0b51",
+      "rev": "2ced778509fa8c6be49d5d33bc9e7bdf2490cbf3",
       "src": "https://github.com/mariusschaffner/atlas.nvim"
     },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
-    },
-    "codediff.nvim": {
-      "rev": "d3eb933df1de9e246186b33f61e40eb7752a92b2",
-      "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "colorful-winsep.nvim": {
       "rev": "6134b5cd4a38990c7b720adc90973ed32f726179",
@@ -20,6 +16,10 @@
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "diffview-plus.nvim": {
+      "rev": "5152bada7d81cd602373e77534aabc631419e8e0",
+      "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "fidget.nvim": {
       "rev": "6f793b2bcd2d35e201c09520f698bb763220908a",

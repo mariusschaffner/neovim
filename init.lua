@@ -33,7 +33,7 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp",                         version = vim.version.range("1.*") },
     -- git
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
-    { src = "https://github.com/esmuellert/codediff.nvim" },
+    { src = "https://github.com/dlyongemallo/diffview-plus.nvim" },
     { src = "https://github.com/MunifTanjim/nui.nvim" },
     { src = "https://github.com/NeogitOrg/neogit" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
@@ -64,6 +64,7 @@ require("kanagawa").setup({
             ["@lsp.type.variable.ps1"] = { fg = "#ef596e" },
             CursorLine = { bg = "#3e4452" },
             Normal = { fg = "#FFFEFE" },
+            Visual = { bg = "#4b6584" },
             ColorfulWinSep = { fg = "#ffa502" },
             NormalFloat = { bg = "NONE" },
             FloatBorder = { fg = "#00f2ff", bg = "NONE" },
@@ -91,6 +92,10 @@ require("kanagawa").setup({
             HintsHl = { link = "DiagnosticHint" },
             InfoHl = { link = "DiagnosticInfo" },
             RecordingHl = { fg = theme.diag.error, bold = true },
+            DiffAdd = { bg = "#2B3328" },
+            DiffChange = { bg = "#2B3328" },
+            DiffText = { bg = "#3D5A3A" },
+            DiffDelete = { fg = "#363646", bg = "NONE" },
         }
     end,
 })
@@ -307,31 +312,8 @@ require("gitsigns").setup({
     },
 })
 
-require("codediff").setup({
-    highlights = {
-        -- Line-level: accepts highlight group names or hex colors
-        line_insert = "#0c4532",
-        line_delete = "#450c0f",
+require("diffview").setup({
 
-        -- Character-level: accepts highlight group names or hex colors
-        char_insert = "#188a64",
-        char_delete = "#b31d28",
-    },
-    keymaps = {
-        view = {
-            quit = "q",
-            toggle_explorer = "<leader>b",
-            next_hunk = "]c",
-            prev_hunk = "[c",
-            next_file = "<Tab>",
-            prev_file = "<S-Tab>",
-        },
-        explorer = {
-            select = "<CR>",
-            hover = "K",
-            refresh = "R",
-        },
-    },
 })
 
 require("atlas").setup({
@@ -357,20 +339,14 @@ require("atlas").setup({
         },
         gitlab = {
             views = {
-                { name = "Assigned to Me", key = "1", scope = "assigned_to_me", state = "open", current_repo = true, order_by = "updated_at" },
-                { name = "WF:Review",      key = "2", scope = "all",            state = "open", current_repo = true, order_by = "updated_at", extra_params = { reviewer_id = "133" } },
-                { name = "All",            key = "3", scope = "all",            state = "open", current_repo = true, order_by = "updated_at" },
+                { name = "All", key = "1", scope = "all", state = "open", current_repo = true, order_by = "updated_at" },
             }
         },
     },
     issues = {
         gitlab = {
             views = {
-                { name = "Assigned to Me", key = "1", scope = "assigned_to_me", state = "opened", current_repo = true, order_by = "updated_at" },
-                { name = "WF:Doing",       key = "2", scope = "all",            state = "opened", current_repo = true, order_by = "updated_at", extra_params = { labels = "WF:Doing" } },
-                { name = "WF:Review",      key = "3", scope = "all",            state = "opened", current_repo = true, order_by = "updated_at", extra_params = { labels = "WF:Review" } },
-                { name = "WF:Deployment",  key = "4", scope = "all",            state = "opened", current_repo = true, order_by = "updated_at", extra_params = { labels = "WF:Deployment" } },
-                { name = "All",            key = "5", scope = "all",            state = "opened", current_repo = true, order_by = "updated_at" },
+                { name = "All", key = "1", scope = "all", state = "opened", current_repo = true, order_by = "updated_at" },
             }
         },
     },
