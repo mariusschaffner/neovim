@@ -33,11 +33,12 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp",                         version = vim.version.range("1.*") },
     -- git
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
-    { src = "https://github.com/dlyongemallo/diffview-plus.nvim" },
+    { src = "https://github.com/esmuellert/codediff.nvim" },
     { src = "https://github.com/MunifTanjim/nui.nvim" },
     { src = "https://github.com/NeogitOrg/neogit" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/mariusschaffner/atlas.nvim" },
+    { src = "https://github.com/mariusschaffner/git.nvim" },
     -- ui / pickers / icons
     { src = "https://github.com/folke/snacks.nvim" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
@@ -75,7 +76,6 @@ require("kanagawa").setup({
             BlinkCmpMenuBorder = { fg = "#00f2ff", bg = "NONE" },
             BlinkCmpDocBorder = { fg = "#820857", bg = "NONE" },
             BlinkCmpLabelMatch = { bg = "None" },
-            RenderMarkdownCode = { bg = '#273349' },
             StatusLine = { bg = "None" },
             StBase = { link = "StatusLine" },
             StModeNormal = { fg = theme.ui.bg, bg = theme.syn.fun, bold = true },
@@ -92,10 +92,6 @@ require("kanagawa").setup({
             HintsHl = { link = "DiagnosticHint" },
             InfoHl = { link = "DiagnosticInfo" },
             RecordingHl = { fg = theme.diag.error, bold = true },
-            DiffAdd = { bg = "#2B3328" },
-            DiffChange = { bg = "#2B3328" },
-            DiffText = { bg = "#3D5A3A" },
-            DiffDelete = { fg = "#363646", bg = "NONE" },
         }
     end,
 })
@@ -312,8 +308,28 @@ require("gitsigns").setup({
     },
 })
 
-require("diffview").setup({
-
+require("codediff").setup({
+    highlights = {
+        line_insert = "#2B3328",
+        line_delete = "#43242B",
+        char_insert = "#3D5A3A",
+        char_delete = "#6E2F3A",
+    },
+    keymaps = {
+        view = {
+            quit = "q",
+            toggle_explorer = "<leader>b",
+            next_hunk = "]c",
+            prev_hunk = "[c",
+            next_file = "<Tab>",
+            prev_file = "<S-Tab>",
+        },
+        explorer = {
+            select = "<CR>",
+            hover = "K",
+            refresh = "R",
+        },
+    },
 })
 
 require("atlas").setup({
@@ -329,7 +345,7 @@ require("atlas").setup({
     },
     pulls = {
         diff = {
-            open_cmd = "AtlasDiff",
+            open_cmd = "CodeDiff",
             layout = "inline",
             compact = true,
             explorer = {
@@ -353,15 +369,17 @@ require("atlas").setup({
 })
 
 require("neogit").setup({
-    graph_style = "unicode",
-    sections = {
-        recent = {
-            folded = false,
-        },
+    graph_style  = "unicode",
+    disable_hint = true,
+    sections     = {
+        recent              = { folded = false },
+        stashes             = { folded = false },
+        unpulled_pushRemote = { folded = false },
+        rebase              = { folded = false },
     },
 })
 
-vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "[G]it Neogit UI" })
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "[G]it UI" })
 
 -- snacks / picker
 require("snacks").setup({

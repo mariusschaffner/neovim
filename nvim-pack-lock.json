@@ -1,13 +1,17 @@
 {
   "plugins": {
     "atlas.nvim": {
-      "rev": "2ced778509fa8c6be49d5d33bc9e7bdf2490cbf3",
+      "rev": "890efbdfa5c05da736684d973a01fe9e2f292e98",
       "src": "https://github.com/mariusschaffner/atlas.nvim"
     },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
+    },
+    "codediff.nvim": {
+      "rev": "09d9ebef2cc5a5c04db7a349cd6c61bdf84ecc8e",
+      "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "colorful-winsep.nvim": {
       "rev": "6134b5cd4a38990c7b720adc90973ed32f726179",
@@ -17,6 +21,10 @@
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "diffchar.vim": {
+      "rev": "14fc3fc79356d6b80462df8dbc8934f293145b9a",
+      "src": "https://github.com/rickhowe/diffchar.vim"
+    },
     "diffview-plus.nvim": {
       "rev": "5152bada7d81cd602373e77534aabc631419e8e0",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
@@ -24,6 +32,10 @@
     "fidget.nvim": {
       "rev": "6f793b2bcd2d35e201c09520f698bb763220908a",
       "src": "https://github.com/j-hui/fidget.nvim"
+    },
+    "git.nvim": {
+      "rev": "904f0c6837ecc35f2e42c5c0519996a1bef837ba",
+      "src": "https://github.com/mariusschaffner/git.nvim"
     },
     "gitsigns.nvim": {
       "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
